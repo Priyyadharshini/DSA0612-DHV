@@ -1,0 +1,10 @@
+library(ggplot2)
+age_data <- data.frame(
+  Age = c(25, 30,35, 30, 40,45,45, 45, 50, 55, 60,65, 65, 70)
+)
+ggplot(age_data, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "purple", color = "black", alpha = 0.7) +
+  labs(title = "Age Distribution",
+       x = "Age",
+       y = "Frequency") +
+  theme_minimal()
