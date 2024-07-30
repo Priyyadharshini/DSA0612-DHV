@@ -1,0 +1,14 @@
+34. Geospatial Data
+
+City	Latitude	Longitude	Population
+New York	40.7128	-74.0060	8398748
+Los Angeles	34.0522	-118.2437	3990456
+Chicago	41.8781	-87.6298	2705994
+Houston	29.7604	-95.3698	2325502
+Phoenix	33.4484	-112.0740	1660272
+
+•  Create a scatter plot of cities on a map based on Latitude and Longitude.
+•  Generate a bubble map where the bubble size represents the Population.
+•  Plot a choropleth map of Population by city.
+•  Create a bar plot showing the top 5 cities by Population.
+•  Generate a heatmap showing the density of cities based on Population.
