@@ -1,0 +1,14 @@
+33. Time Series Data
+
+Date	      Sales
+2023-01-01	100
+2023-02-01	120
+2023-03-01	150
+2023-04-01	130
+2023-05-01	140
+
+•  Create a line plot of Sales over time.
+•  Generate a bar plot showing monthly average Sales.
+•  Plot a seasonal decomposition of Sales.
+•  Create a lag plot to analyze autocorrelation in Sales.
+•  Generate a time series plot with a smoothed line of Sales.
