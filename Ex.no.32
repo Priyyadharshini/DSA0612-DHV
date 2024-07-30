@@ -1,0 +1,14 @@
+32. Categorical Data
+
+ID	Gender	Education	Occupation
+1	Male	Graduate	Engineer
+2	Female	Undergrad	Teacher
+3	Male	High School	Doctor
+4	Female	Graduate	Lawyer
+5	Male	Undergrad	Artist
+
+•  Create a bar plot showing the count of each Gender.
+•  Plot a pie chart representing the distribution of Education levels.
+•  Create a stacked bar plot showing the count of each Occupation by Gender.
+•  Generate a mosaic plot to visualize the association between Education and Occupation.
+•  Create a grouped bar plot showing counts of Gender across different Education levels.
