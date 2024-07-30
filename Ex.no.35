@@ -1,0 +1,14 @@
+35. Multivariate Data
+
+ID	X1	X2	X3
+1	5	10	15
+2	7	12	14
+3	6	11	13
+4	8	9	16
+5	4	13	17
+
+•  Create a pairwise scatter plot matrix of X1, X2, X3, and X4.
+•  Generate a 3D scatter plot of X1, X2, and X3.
+•  Plot a parallel coordinates plot of X1, X2, X3, and X4.
+•  Create a radar chart to compare values of X1, X2, X3, and X4 for ID 1.
+•  Generate a heatmap showing correlations between X1, X2, X3, and X4.
