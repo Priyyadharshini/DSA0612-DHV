@@ -1,0 +1,185 @@
+# Load necessary libraries
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+
+# Step 1: Load Data
+data <- read.table(header=TRUE, text="
+Store_ID	Region	Month	Total_Sales	Number_Of_Customers	Average_Transaction_Value
+1	North	January	10000	500	20
+2	South	January	15000	700	21.43
+3	East	January	12000	600	20
+4	West	January	13000	650	20
+5	North	February	9000	450	20
+6	South	February	16000	800	20
+7	East	February	14000	700	20
+8	West	February	11000	550	20
+9	North	March	11000	550	20
+10	South	March	17000	850	20
+11	East	March	13000	650	20
+12	West	March	15000	750	20
+13	North	April	12000	600	20
+14	South	April	18000	900	20
+15	East	April	16000	800	20
+16	West	April	14000	700	20
+17	North	May	13000	650	20
+18	South	May	19000	950	20
+19	East	May	15000	750	20
+20	West	May	16000	800	20
+21	North	June	14000	700	20
+22	South	June	20000	1000	20
+23	East	June	17000	850	20
+24	West	June	15000	750	20
+25	North	July	15000	750	20
+26	South	July	21000	1050	20
+27	East	July	16000	800	20
+28	West	July	14000	700	20
+29	North	August	16000	800	20
+30	South	August	22000	1100	20
+31	East	August	13000	650	20
+32	West	August	15000	750	20
+33	North	September	12000	600	20
+34	South	September	18000	900	20
+35	East	September	16000	800	20
+36	West	September	14000	700	20
+37	North	October	13000	650	20
+38	South	October	19000	950	20
+39	East	October	15000	750	20
+40	West	October	16000	800	20
+41	North	November	14000	700	20
+42	South	November	20000	1000	20
+43	East	November	17000	850	20
+44	West	November	15000	750	20
+45	North	December	15000	750	20
+46	South	December	21000	1050	20
+47	East	December	16000	800	20
+48	West	December	14000	700	20
+")
+
+# Step 2: Data Cleaning
+data <- data %>%
+  mutate(
+    Month = factor(Month, levels = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")),
+    Region = factor(Region, levels = c("North", "South", "East", "West"))
+  )
+
+# Step 3: Data Processing
+# Calculate total sales and number of customers by region and month
+region_sales <- data %>%
+  group_by(Region, Month) %>%
+  summarise(Total_Sales = sum(Total_Sales), Number_Of_Customers = sum(Number_Of_Customers))
+
+# Step 4: Sales Analysis over the region
+region_sales_plot <- ggplot(region_sales, aes(x = Region, y = Total_Sales, fill = Region)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  ggtitle("Total Sales by Region")
+
+# Step 5: Sales analysis over a month
+month_sales_plot <- ggplot(region_sales, aes(x = Month, y = Total_Sales, fill = Month)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  ggtitle("Total Sales by Month")
+
+# Step 6: Sales analysis based on total sales
+total_sales_plot <- ggplot(data, aes(x = reorder(Month, Total_Sales), y = Total_Sales, color = Region)) +
+  geom_line(aes(group = Region), size = 1) +
+  geom_point(size = 2) +
+  theme_minimal() +
+  ggtitle("Total Sales Trend by Month and Region")
+
+# Step 7: Analysis based on number of customers over the month
+customers_plot <- ggplot(region_sales, aes(x = Month, y = Number_Of_Customers, fill = Region)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  ggtitle("Number of Customers by Month and Region")
+
+# Step 8: Calculate the Mean, Median, and Standard Deviation over the average transaction value
+mean_val <- mean(data$Average_Transaction_Value)
+median_val <- median(data$Average_Transaction_Value)
+sd_val <- sd(data$Average_Transaction_Value)
+
+# Step 9: Find the trendline based on the sales
+sales_trend_plot <- ggplot(data, aes(x = as.numeric(Month), y = Total_Sales, color = Region)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  ggtitle("Sales Trend by Region")
+
+# Step 10: Find the seasonal sales in each region
+seasonal_sales_plot <- ggplot(region_sales, aes(x = Month, y = Total_Sales, color = Region)) +
+  geom_line(aes(group = Region), size = 1) +
+  geom_point(size = 2) +
+  theme_minimal() +
+  ggtitle("Seasonal Sales by Region")
+
+# Step 11: Visualize the region-based sales over the number of customers.
+region_customers_plot <- ggplot(data, aes(x = Number_Of_Customers, y = Total_Sales, color = Region)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  ggtitle("Region-based Sales vs Number of Customers")
+
+# Step 12: Visualize a minimum of 25 plots
+# This part will include various plots for deeper insights
+
+# Example 1: Total Sales by Month and Region
+sales_month_region_plot <- ggplot(data, aes(x = Month, y = Total_Sales, fill = Region)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  ggtitle("Total Sales by Month and Region")
+
+# Example 2: Average Transaction Value by Region
+avg_transaction_value_plot <- ggplot(data, aes(x = Region, y = Average_Transaction_Value, fill = Region)) +
+  geom_boxplot() +
+  theme_minimal() +
+  ggtitle("Average Transaction Value by Region")
+
+# Example 3: Total Sales Distribution
+total_sales_dist_plot <- ggplot(data, aes(x = Total_Sales)) +
+  geom_histogram(bins = 30, fill = "blue", color = "white") +
+  theme_minimal() +
+  ggtitle("Total Sales Distribution")
+
+# Example 4: Number of Customers Distribution
+customers_dist_plot <- ggplot(data, aes(x = Number_Of_Customers)) +
+  geom_histogram(bins = 30, fill = "green", color = "white") +
+  theme_minimal() +
+  ggtitle("Number of Customers Distribution")
+
+# Example 5: Scatter Plot of Total Sales vs Number of Customers
+sales_customers_scatter_plot <- ggplot(data, aes(x = Number_Of_Customers, y = Total_Sales)) +
+  geom_point(aes(color = Region), size = 2) +
+  theme_minimal() +
+  ggtitle("Total Sales vs Number of Customers")
+
+# Example 6: Pairwise Relationships (using GGally)
+library(GGally)
+pairwise_plot <- ggpairs(data, columns = c("Total_Sales", "Number_Of_Customers", "Average_Transaction_Value"), aes(color = Region))
+
+# Example 7: Sales Trend per Region with a Smoothing Line
+sales_trend_smooth_plot <- ggplot(data, aes(x = as.numeric(Month), y = Total_Sales, color = Region)) +
+  geom_smooth() +
+  theme_minimal() +
+  ggtitle("Sales Trend with Smoothing Line by Region")
+
+# Example 8: 3D Scatter Plot (using plotly)
+library(plotly)
+plot_ly(data, x = ~Number_Of_Customers, y = ~Total_Sales, z = ~Average_Transaction_Value, color = ~Region, type = 'scatter3d', mode = 'markers') %>%
+  layout(title = "3D Scatter Plot of Sales Data")
+
+# Print all plots
+print(region_sales_plot)
+print(month_sales_plot)
+print(total_sales_plot)
+print(customers_plot)
+print(sales_trend_plot)
+print(seasonal_sales_plot)
+print(region_customers_plot)
+print(sales_month_region_plot)
+print(avg_transaction_value_plot)
+print(total_sales_dist_plot)
+print(customers_dist_plot)
+print(sales_customers_scatter_plot)
+print(pairwise_plot)
+print(sales_trend_smooth_plot)
+print("3D Scatter Plot can be viewed in an interactive session.")
