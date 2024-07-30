@@ -1,0 +1,14 @@
+31.Continuous Numeric Data
+
+ID	Age	Height	Weight
+1	25	175	70
+2	30	180	80
+3	28	170	65
+4	35	165	75
+5	40	185	90
+
+•  Create a scatter plot between Age and Weight.
+•  Generate a histogram of Height.
+•  Plot a line chart showing changes in Weight over IDs.
+•  Create a box plot of Age.
+•  Create a density plot of Height.
